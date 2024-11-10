@@ -16,31 +16,30 @@ CREATE TABLE user (
 
 CREATE TABLE userProfile (
     userId INT NOT NULL, 
-    preferences JSON NOT NULL,
+    preferences JSON NOT NULL DEFAULT {},
     FOREIGN KEY (userId) REFERENCES user(userId)
 );
 
 CREATE TABLE organizations (
     organizationId INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
     timeOfMeetings TIMESTAMP NOT NULL,
     streetAddress VARCHAR(255),
     city VARCHAR(100),
     state VARCHAR(100),
     postalCode VARCHAR(20),
     country VARCHAR(100),
-    pictureLinks JSON NULL,
     description TEXT,
     phoneNumber VARCHAR(20),
     email VARCHAR(100),
-    website VARCHAR(255),
-    establishedDate DATE,
-    socialMediaLinks JSON NULL,
-    rating TINYINT,  -- Changed from INT(1) to TINYINT
+    rating TINYINT,
+    tags JSON DEFAULT '{}',  
     status ENUM('Active', 'Inactive', 'Suspended')
 );
 
 CREATE TABLE events (
     eventId INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
     createdBy INT NOT NULL, 
     organizationId INT NULL,
     timeOfEvent TIMESTAMP NOT NULL,
@@ -49,29 +48,15 @@ CREATE TABLE events (
     state VARCHAR(100),
     postalCode VARCHAR(20),
     country VARCHAR(100),
-    pictureLinks JSON NULL,
     description TEXT,
     phoneNumber VARCHAR(20),
     email VARCHAR(100),
-    website VARCHAR(255),
-    socialMediaLinks JSON NULL,
-    rating TINYINT,  -- Changed from INT(1) to TINYINT
+    rating TINYINT,
+    tags JSON DEFAULT '{}', 
     FOREIGN KEY (organizationId) REFERENCES organizations(organizationId),
     FOREIGN KEY (createdBy) REFERENCES user(userId)
 );
 
-CREATE TABLE userEventParticipation (
-    userId INT NOT NULL,
-    eventId INT NOT NULL,
-    PRIMARY KEY (userId, eventId),
-    FOREIGN KEY (userId) REFERENCES user(userId),
-    FOREIGN KEY (eventId) REFERENCES events(eventId)
-);
-
-CREATE TABLE userOrganizationMembership (
-    userId INT NOT NULL,
-    organizationId INT NOT NULL,
-    PRIMARY KEY (userId, organizationId),
-    FOREIGN KEY (userId) REFERENCES user(userId),
-    FOREIGN KEY (organizationId) REFERENCES organizations(organizationId)
+CREATE TABLE tags (
+    tag VARCHAR(255) NOT NULL
 );

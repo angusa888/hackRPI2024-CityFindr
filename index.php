@@ -30,7 +30,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" nonce="<?php echo $nonce; ?>"></script>
-    <link rel="stylesheet" type="text/css" href="./resources/login/login.css">
+    <link rel="stylesheet" type="text/css" href="./resources/cityfindr.css">
     <title>Log In</title>
 </head>
 <body>
