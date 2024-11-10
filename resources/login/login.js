@@ -66,13 +66,46 @@ formSignup.addEventListener('submit', (e) => {
     e.preventDefault();
     const username = document.getElementById('usernameSignup').value; 
     const password = document.getElementById('passwordSignup').value;
+    const addressOne = document.getElementById('addressOne').value;
+    const addressTwo = document.getElementById('addressTwo').value;
+    const state = document.getElementById('state').value;
+    const postalCode = document.getElementById('postalCode').value;
+    const country = document.getElementById('country').value;
+    const city = document.getElementById('city').value;
     const csrfTokenSignup = document.getElementById('csrf-token-signup').value;
+    const email = document.getElementById('email').value;
     const xhr = new XMLHttpRequest();
     xhr.open('POST', './resources/php/signup.php', true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.setRequestHeader('x-csrf-token', csrfTokenSignup);
-    xhr.send(`usernameSignup=${encodeURIComponent(username)}&passwordSignup=${encodeURIComponent(password)}`); // Added '&' separator
-    xhr.onload = function() {
+    var initData;
+    if (addressTwo != null)
+    {
+        initData = `usernameSignup=${encodeURIComponent(username)}&` +
+    `passwordSignup=${encodeURIComponent(password)}&` +
+    `addressOne=${encodeURIComponent(addressOne)}&` +
+    `addressTwo=${encodeURIComponent(addressTwo)}&` +
+    `postalCode=${encodeURIComponent(postalCode)}&` +
+    `country=${encodeURIComponent(country)}&` +
+    `city=${encodeURIComponent(city)}&` +
+    `state=${encodeURIComponent(state)}&` +
+    `email=${encodeURIComponent(email)}`;
+    }
+    else {
+        initData = `usernameSignup=${encodeURIComponent(username)}&` +
+    `passwordSignup=${encodeURIComponent(password)}&` +
+    `addressOne=${encodeURIComponent(addressOne)}&` +
+    `postalCode=${encodeURIComponent(postalCode)}&` +
+    `country=${encodeURIComponent(country)}&` +
+    `city=${encodeURIComponent(city)}&` +
+    `state=${encodeURIComponent(state)}&` +
+    `email=${encodeURIComponent(email)}`;
+    }
+    const data = initData;
+
+// Send the request with the data
+xhr.send(data);    
+xhr.onload = function() {
         if (xhr.status === 200) { // Use strict equality
             const response = xhr.responseText;
             if (response === 'success') { // Use strict equality

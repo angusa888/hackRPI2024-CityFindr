@@ -29,15 +29,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" nonce="<$"></script>
-    <script src="./resources/login/login.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" nonce="<?php echo $nonce; ?>"></script>
+    <link rel="stylesheet" type="text/css" href="./resources/login/login.css">
     <title>Log In</title>
 </head>
 <body>
+<div class="container">
+<button id="openModal1"><b>Login</b></button>
+<button id="openModal2"><b>Sign Up</b></button>
     <div id="loginModal" class="modal">
         <div class="modal-content1">
             <span class="close">&times;</span>
-            <h2>Garde Manger</h2>
+            <h2>CityFindr</h2>
 
             <!-- Login form -->
             <form id="loginForm" action="login.php" method="POST">
@@ -54,11 +57,20 @@
             <h2>Get Started with Us!</h2>
             <form id="signupForm" action="./resources/php/signup.php" method="POST">
                 <input type="hidden" id="csrf-token-signup" name="csrf-token-signup" value="<?php echo $csrfTokenSignup; ?>">
+                <input type="text" id="addressOne" placeholder="Enter your address line 1" required>
+                <input type="text" id="addressTwo" placeholder="Enter your address line 2 (optional)">
+                <input type="text" id="state" placeholder="Enter your state (if applicable)">
+                <input type="text" id="city" placeholder="Enter your city" required>
+                <input type="text" id="postalCode" placeholder="Enter your postal code" required>
+                <input type="text" id="country" placeholder="Enter your country" required>
                 <input type="text" id="usernameSignup" placeholder="Enter your username" required>
+                <input type="text" id="email" placeholder="Enter your email" required>
                 <input type="password" id="passwordSignup" placeholder="Enter Password" required>
                 <button type="submit" class="signInBtn">Sign Up</button>
             </form>
         </div>
     </div>
+    </div>
+    <script src="./resources/login/login.js" nonce="<?php echo $nonce; ?>"></script>
 </body>
 </html>
